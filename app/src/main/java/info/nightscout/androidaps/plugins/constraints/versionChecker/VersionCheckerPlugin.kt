@@ -23,9 +23,9 @@ import kotlin.math.roundToInt
 
 object VersionCheckerPlugin : PluginBase(PluginDescription()
     .mainType(PluginType.CONSTRAINTS)
-    .neverVisible(true)
-    .alwaysEnabled(true)
-    .showInList(false)
+    .neverVisible(false)
+    .alwaysEnabled(false)
+    .showInList(true)
     .pluginName(R.string.versionChecker)), ConstraintsInterface {
 
     private val gracePeriod: GracePeriod
