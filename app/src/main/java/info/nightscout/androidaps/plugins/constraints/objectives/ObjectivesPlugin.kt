@@ -133,37 +133,37 @@ object ObjectivesPlugin : PluginBase(PluginDescription()
      */
     override fun isLoopInvocationAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[FIRST_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), FIRST_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), FIRST_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isClosedLoopAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[MAXIOB_ZERO_CL_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isAutosensModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[AUTOSENS_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), AUTOSENS_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), AUTOSENS_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isAMAModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[AMA_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), AMA_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), AMA_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isSMBModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[SMB_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), SMB_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), SMB_OBJECTIVE + 1), this)
         return value
     }
 
     override fun applyMaxIOBConstraints(maxIob: Constraint<Double>): Constraint<Double> {
         if (objectives[MAXIOB_ZERO_CL_OBJECTIVE].isStarted && !objectives[MAXIOB_ZERO_CL_OBJECTIVE].isAccomplished)
-            maxIob.set(0.0, String.format(MainApp.gs(R.string.objectivenotfinished), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
+            maxIob.set(40.0, String.format(MainApp.gs(R.string.objectivenotfinished), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
         return maxIob
     }
 
