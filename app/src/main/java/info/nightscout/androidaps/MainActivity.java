@@ -112,7 +112,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
         //Check here if loop plugin is disabled. Else check via constraints
         if (!LoopPlugin.getPlugin().isEnabled(PluginType.LOOP))
-            VersionCheckerUtilsKt.triggerCheckVersion();
+            //VersionCheckerUtilsKt.triggerCheckVersion();
 
         FabricPrivacy.setUserStats();
 

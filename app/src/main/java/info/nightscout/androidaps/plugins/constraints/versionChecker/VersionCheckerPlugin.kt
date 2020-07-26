@@ -35,15 +35,6 @@ object VersionCheckerPlugin : PluginBase(PluginDescription()
             GracePeriod.RELEASE
         }
 
-    override fun isClosedLoopAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
-        checkWarning()
-        triggerCheckVersion()
-        return if (isOldVersion(gracePeriod.veryOld.daysToMillis()))
-            value.set(false, MainApp.gs(R.string.very_old_version), this)
-        else
-            value
-    }
-
     private fun checkWarning() {
         val now = System.currentTimeMillis()
 
@@ -71,11 +62,6 @@ object VersionCheckerPlugin : PluginBase(PluginDescription()
     private fun shouldWarnAgain(now: Long) =
         now > SP.getLong(R.string.key_last_versionchecker_plugin_warning, 0) + WARN_EVERY
 
-    override fun applyMaxIOBConstraints(maxIob: Constraint<Double>): Constraint<Double> =
-        if (isOldVersion(gracePeriod.old.daysToMillis()))
-            maxIob.set(0.toDouble(), MainApp.gs(R.string.old_version), this)
-        else
-            maxIob
 
     private fun isOldVersion(gracePeriod: Long): Boolean {
         val now = System.currentTimeMillis()
