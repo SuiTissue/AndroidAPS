@@ -434,7 +434,7 @@ public class MainApp extends Application {
         if (L.isEnabled(L.CORE))
             log.debug("onTerminate");
 
-        if (timeDateOrTZChangeReceiver != null)
+        if (timeDateOrTZChangeReceiver != null)L
             unregisterReceiver(timeDateOrTZChangeReceiver);
         unregisterActivityLifecycleCallbacks(ActivityMonitor.INSTANCE);
         KeepAliveReceiver.cancelAlarm(this);
