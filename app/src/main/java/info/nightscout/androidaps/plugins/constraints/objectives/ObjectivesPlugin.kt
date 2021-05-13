@@ -105,21 +105,21 @@ class ObjectivesPlugin @Inject constructor(
             objective.startedOn = 0
             objective.accomplishedOn = 0
         }
-        sp.putBoolean(R.string.key_ObjectivesbgIsAvailableInNS, false)
-        sp.putBoolean(R.string.key_ObjectivespumpStatusIsAvailableInNS, false)
-        sp.putInt(R.string.key_ObjectivesmanualEnacts, 0)
-        sp.putBoolean(R.string.key_objectiveuseprofileswitch, false)
-        sp.putBoolean(R.string.key_objectiveusedisconnect, false)
-        sp.putBoolean(R.string.key_objectiveusereconnect, false)
-        sp.putBoolean(R.string.key_objectiveusetemptarget, false)
-        sp.putBoolean(R.string.key_objectiveuseactions, false)
-        sp.putBoolean(R.string.key_objectiveuseloop, false)
-        sp.putBoolean(R.string.key_objectiveusescale, false)
+        SP.putBoolean(R.string.key_ObjectivesbgIsAvailableInNS, true)
+        SP.putBoolean(R.string.key_ObjectivespumpStatusIsAvailableInNS, true)
+        SP.putInt(R.string.key_ObjectivesmanualEnacts, 1337)
+        SP.putBoolean(R.string.key_objectiveuseprofileswitch, true)
+        SP.putBoolean(R.string.key_objectiveusedisconnect, true)
+        SP.putBoolean(R.string.key_objectiveusereconnect, true)
+        SP.putBoolean(R.string.key_objectiveusetemptarget, true)
+        SP.putBoolean(R.string.key_objectiveuseactions, true)
+        SP.putBoolean(R.string.key_objectiveuseloop, true)
+        SP.putBoolean(R.string.key_objectiveusescale, true)
     }
 
-    fun completeObjectives(activity: FragmentActivity, request: String) {
-        val requestCode = sp.getString(R.string.key_objectives_request_code, "")
-        var url = sp.getString(R.string.key_nsclientinternal_url, "").toLowerCase(Locale.getDefault())
+    fun completeObjectives(activity: Activity, request: String) {
+        val requestCode = SP.getString(R.string.key_objectives_request_code, "")
+        var url = SP.getString(R.string.key_nsclientinternal_url, "").toLowerCase()
         if (!url.endsWith("/")) url = "$url/"
         @Suppress("DEPRECATION") val hashNS = Hashing.sha1().hashString(url + BuildConfig.APPLICATION_ID + "/" + requestCode, Charsets.UTF_8).toString()
         if (request.equals(hashNS.substring(0, 10), ignoreCase = true)) {
@@ -159,43 +159,37 @@ class ObjectivesPlugin @Inject constructor(
      */
     override fun isLoopInvocationAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[FIRST_OBJECTIVE].isStarted)
-            value.set(aapsLogger, false, String.format(resourceHelper.gs(R.string.objectivenotstarted), FIRST_OBJECTIVE + 1), this)
-        return value
-    }
-
-    fun isLgsAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
-        if (!objectives[MAXBASAL_OBJECTIVE].isStarted)
-            value.set(aapsLogger, false, String.format(resourceHelper.gs(R.string.objectivenotstarted), MAXBASAL_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), FIRST_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isClosedLoopAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[MAXIOB_ZERO_CL_OBJECTIVE].isStarted)
-            value.set(aapsLogger, false, String.format(resourceHelper.gs(R.string.objectivenotstarted), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
+            value.set(aapsLogger, true, String.format(MainApp.gs(R.string.objectivenotstarted), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isAutosensModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[AUTOSENS_OBJECTIVE].isStarted)
-            value.set(aapsLogger, false, String.format(resourceHelper.gs(R.string.objectivenotstarted), AUTOSENS_OBJECTIVE + 1), this)
+            value.set(aapsLogger, true, String.format(MainApp.gs(R.string.objectivenotstarted), AUTOSENS_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isAMAModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[AMA_OBJECTIVE].isStarted)
-            value.set(aapsLogger, false, String.format(resourceHelper.gs(R.string.objectivenotstarted), AMA_OBJECTIVE + 1), this)
+            value.set(aapsLogger, true, String.format(MainApp.gs(R.string.objectivenotstarted), AMA_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isSMBModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[SMB_OBJECTIVE].isStarted)
-            value.set(aapsLogger, false, String.format(resourceHelper.gs(R.string.objectivenotstarted), SMB_OBJECTIVE + 1), this)
+            value.set(aapsLogger, true, String.format(MainApp.gs(R.string.objectivenotstarted), SMB_OBJECTIVE + 1), this)
         return value
     }
 
     override fun applyMaxIOBConstraints(maxIob: Constraint<Double>): Constraint<Double> {
         if (objectives[MAXIOB_ZERO_CL_OBJECTIVE].isStarted && !objectives[MAXIOB_ZERO_CL_OBJECTIVE].isAccomplished)
-            maxIob.set(aapsLogger, 0.0, String.format(resourceHelper.gs(R.string.objectivenotfinished), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
+            maxIob.set(aapsLogger, 40.0, String.format(MainApp.gs(R.string.objectivenotfinished), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
         return maxIob
     }
 

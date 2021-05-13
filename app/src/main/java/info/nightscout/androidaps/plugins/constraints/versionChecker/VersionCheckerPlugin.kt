@@ -30,6 +30,7 @@ class VersionCheckerPlugin @Inject constructor(
     aapsLogger: AAPSLogger
 ) : PluginBase(PluginDescription()
     .mainType(PluginType.CONSTRAINTS)
+<<<<<<< HEAD
     .neverVisible(true)
     .alwaysEnabled(true)
     .showInList(false)
@@ -41,6 +42,12 @@ class VersionCheckerPlugin @Inject constructor(
         RELEASE(30, 60, 90),
         RC(1, 7, 14)
     }
+=======
+    .neverVisible(false)
+    .alwaysEnabled(false)
+    .showInList(true)
+    .pluginName(R.string.versionChecker)), ConstraintsInterface {
+>>>>>>> dcc7e3ef572d8077a215f79b7441c781e1f12d30
 
     private val gracePeriod: GracePeriod
         get() = if ((BuildConfig.VERSION_NAME.contains("RC", ignoreCase = true))) {
@@ -49,6 +56,7 @@ class VersionCheckerPlugin @Inject constructor(
             GracePeriod.RELEASE
         }
 
+<<<<<<< HEAD
     companion object {
         private val WARN_EVERY: Long
             get() = TimeUnit.DAYS.toMillis(1)
@@ -63,6 +71,8 @@ class VersionCheckerPlugin @Inject constructor(
             value
     }
 
+=======
+>>>>>>> dcc7e3ef572d8077a215f79b7441c781e1f12d30
     private fun checkWarning() {
         val now = System.currentTimeMillis()
 
@@ -90,11 +100,14 @@ class VersionCheckerPlugin @Inject constructor(
     private fun shouldWarnAgain(now: Long) =
         now > sp.getLong(R.string.key_last_versionchecker_plugin_warning, 0) + WARN_EVERY
 
+<<<<<<< HEAD
     override fun applyMaxIOBConstraints(maxIob: Constraint<Double>): Constraint<Double> =
         if (isOldVersion(gracePeriod.old.daysToMillis()))
             maxIob.set(aapsLogger, 0.0, resourceHelper.gs(R.string.old_version), this)
         else
             maxIob
+=======
+>>>>>>> dcc7e3ef572d8077a215f79b7441c781e1f12d30
 
     private fun isOldVersion(gracePeriod: Long): Boolean {
         val now = System.currentTimeMillis()

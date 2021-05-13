@@ -122,10 +122,12 @@ public class NSClientService extends DaggerService {
 
     private String nsAPIhashCode = "";
 
-    private final ArrayList<Long> reconnections = new ArrayList<>();
-    private final int WATCHDOG_INTERVAL_MINUTES = 2;
-    private final int WATCHDOG_RECONNECT_IN = 15;
-    private final int WATCHDOG_MAXCONNECTIONS = 5;
+    public static UploadQueue uploadQueue = new UploadQueue();
+
+    private ArrayList<Long> reconnections = new ArrayList<>();
+    private int WATCHDOG_INTERVAL_MINUTES = 1;
+    private int WATCHDOG_RECONNECT_IN = 1;
+    private int WATCHDOG_MAXCONNECTIONS = 100;
 
     public NSClientService() {
         super();
