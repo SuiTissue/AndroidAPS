@@ -89,16 +89,16 @@ object ObjectivesPlugin : PluginBase(PluginDescription()
             objective.startedOn = 0
             objective.accomplishedOn = 0
         }
-        SP.putBoolean(R.string.key_ObjectivesbgIsAvailableInNS, false)
-        SP.putBoolean(R.string.key_ObjectivespumpStatusIsAvailableInNS, false)
-        SP.putInt(R.string.key_ObjectivesmanualEnacts, 0)
-        SP.putBoolean(R.string.key_objectiveuseprofileswitch, false)
-        SP.putBoolean(R.string.key_objectiveusedisconnect, false)
-        SP.putBoolean(R.string.key_objectiveusereconnect, false)
-        SP.putBoolean(R.string.key_objectiveusetemptarget, false)
-        SP.putBoolean(R.string.key_objectiveuseactions, false)
-        SP.putBoolean(R.string.key_objectiveuseloop, false)
-        SP.putBoolean(R.string.key_objectiveusescale, false)
+        SP.putBoolean(R.string.key_ObjectivesbgIsAvailableInNS, true)
+        SP.putBoolean(R.string.key_ObjectivespumpStatusIsAvailableInNS, true)
+        SP.putInt(R.string.key_ObjectivesmanualEnacts, 1337)
+        SP.putBoolean(R.string.key_objectiveuseprofileswitch, true)
+        SP.putBoolean(R.string.key_objectiveusedisconnect, true)
+        SP.putBoolean(R.string.key_objectiveusereconnect, true)
+        SP.putBoolean(R.string.key_objectiveusetemptarget, true)
+        SP.putBoolean(R.string.key_objectiveuseactions, true)
+        SP.putBoolean(R.string.key_objectiveuseloop, true)
+        SP.putBoolean(R.string.key_objectiveusescale, true)
     }
 
     fun completeObjectives(activity: Activity, request: String) {
@@ -133,37 +133,37 @@ object ObjectivesPlugin : PluginBase(PluginDescription()
      */
     override fun isLoopInvocationAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[FIRST_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), FIRST_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), FIRST_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isClosedLoopAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[MAXIOB_ZERO_CL_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isAutosensModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[AUTOSENS_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), AUTOSENS_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), AUTOSENS_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isAMAModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[AMA_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), AMA_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), AMA_OBJECTIVE + 1), this)
         return value
     }
 
     override fun isSMBModeEnabled(value: Constraint<Boolean>): Constraint<Boolean> {
         if (!objectives[SMB_OBJECTIVE].isStarted)
-            value.set(false, String.format(MainApp.gs(R.string.objectivenotstarted), SMB_OBJECTIVE + 1), this)
+            value.set(true, String.format(MainApp.gs(R.string.objectivenotstarted), SMB_OBJECTIVE + 1), this)
         return value
     }
 
     override fun applyMaxIOBConstraints(maxIob: Constraint<Double>): Constraint<Double> {
         if (objectives[MAXIOB_ZERO_CL_OBJECTIVE].isStarted && !objectives[MAXIOB_ZERO_CL_OBJECTIVE].isAccomplished)
-            maxIob.set(0.0, String.format(MainApp.gs(R.string.objectivenotfinished), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
+            maxIob.set(40.0, String.format(MainApp.gs(R.string.objectivenotfinished), MAXIOB_ZERO_CL_OBJECTIVE + 1), this)
         return maxIob
     }
 

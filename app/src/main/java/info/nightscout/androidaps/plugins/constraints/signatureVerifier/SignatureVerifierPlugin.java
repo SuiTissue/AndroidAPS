@@ -61,9 +61,9 @@ public class SignatureVerifierPlugin extends PluginBase implements ConstraintsIn
     private SignatureVerifierPlugin() {
         super(new PluginDescription()
                 .mainType(PluginType.CONSTRAINTS)
-                .neverVisible(true)
-                .alwaysEnabled(true)
-                .showInList(false)
+                .neverVisible(false)
+                .alwaysEnabled(false)
+                .showInList(true)
                 .pluginName(R.string.signature_verifier));
     }
 
